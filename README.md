@@ -5,7 +5,7 @@
 
 
 ## 1.简介
-&emsp;Java图形验证码，支持gif、中文、算术等类型，可用于Java Web、JavaSE等项目。
+&emsp;Java图形验证码，支持gif、中文、算术等类型，可用于Java Web、JavaSE等项目，主要添加了对spring boot3 和jdk17的支持。
 
 ---
 
