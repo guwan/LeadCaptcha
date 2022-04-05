@@ -360,3 +360,6 @@ public class CaptchaController {
     - 增加中文验证码、中文gif验证码
     - 增加抗锯齿效果，优化文字颜色
     - 增加CaptchaUtil便于Web项目使用
+
+
+从https://gitee.com/ele-admin/EasyCaptcha fork来到原始版本代码
