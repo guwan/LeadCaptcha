@@ -77,16 +77,34 @@ dependencies {
 ## 4.使用方法
 
 ### 4.1.在SpringMVC中使用
+
+将需要验证码放入session中
 ```java
 @Controller
 public class CaptchaController {
     
     @RequestMapping("/captcha")
     public void captcha(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        CaptchaUtil.out(request, response);
+        SessionCaptchaUtil.out(request, response);
     }
 }
 ```
+
+如果你是单机模式
+可以这样使用,他默认是5分钟过期,你可以传入过期时间等更好的控制
+```java 
+    @GetMapping("/captcha")
+    public void captcha(@RequestParam String sessionId, HttpServletResponse response) throws Exception {
+        LocalCaptchaUtil.out(sessionId, response);
+    }
+```
+验证码验证
+```java 
+LocalCaptchaUtil.verify(code, sessionId);
+```
+
+集群模式推荐参照LocalCaptchaUtil写一个。
+
 前端html代码：
 ```html
 <img src="/captcha" width="130px" height="48px" />

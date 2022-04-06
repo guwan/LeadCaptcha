@@ -9,10 +9,10 @@ import java.io.IOException;
 import java.util.Locale;
 
 /**
- * TODO
+ * 生成验证码的工厂类
  *
- * @Author andy
- * @Date 2022/4/5 10:17
+ * @author andy
+ * @date 2022/4/5 10:17
  */
 public class CaptchaTextFactory {
     private static final String SESSION_KEY = "captcha";

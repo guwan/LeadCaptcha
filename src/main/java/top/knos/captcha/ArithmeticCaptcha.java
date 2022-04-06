@@ -14,20 +14,41 @@ import java.io.OutputStream;
  */
 public class ArithmeticCaptcha extends ArithmeticCaptchaAbstract {
 
+    /**
+     * 数学验证码构造函数
+     */
     public ArithmeticCaptcha() {
     }
 
+    /**
+     * 数学验证码
+     * @param width
+     * @param height
+     */
     public ArithmeticCaptcha(int width, int height) {
         this();
         setWidth(width);
         setHeight(height);
     }
 
+    /**
+     * 数学验证码
+     * @param width
+     * @param height
+     * @param len
+     */
     public ArithmeticCaptcha(int width, int height, int len) {
         this(width, height);
         setLen(len);
     }
 
+    /**
+     * 数学验证码
+     * @param width
+     * @param height
+     * @param len
+     * @param font
+     */
     public ArithmeticCaptcha(int width, int height, int len, Font font) {
         this(width, height, len);
         setFont(font);
