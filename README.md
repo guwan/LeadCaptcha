@@ -94,13 +94,13 @@ public class CaptchaController {
 可以这样使用,他默认是5分钟过期,你可以传入过期时间等更好的控制
 ```java 
     @GetMapping("/captcha")
-    public void captcha(@RequestParam String sessionId, HttpServletResponse response) throws Exception {
-        LocalCaptchaUtil.out(sessionId, response);
+    public void captcha(@RequestParam String captchaKey, HttpServletResponse response) throws Exception {
+        LocalCaptchaUtil.out(captchaKey, response);
     }
 ```
 验证码验证
 ```java 
-LocalCaptchaUtil.verify(code, sessionId);
+LocalCaptchaUtil.verify(code, captchaKey);
 ```
 
 集群模式推荐参照LocalCaptchaUtil写一个。
