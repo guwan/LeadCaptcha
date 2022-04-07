@@ -3,7 +3,7 @@
 
     <groupId>io.github.guwan</groupId>
     <artifactId>lead-captcha</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
 
     <name>LeadCaptcha</name>

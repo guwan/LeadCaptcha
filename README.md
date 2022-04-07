@@ -55,7 +55,7 @@
 ### 3.1.gradle方式的引入
 ```text
 dependencies {
-    implementation 'top.knos:lead-captcha:0.0.1'
+    implementation 'top.knos:lead-captcha:0.0.2'
 }
 ```
 
@@ -65,7 +65,7 @@ dependencies {
    <dependency>
       <groupId>com.github.guwan</groupId>
       <artifactId>lead-captcha</artifactId>
-      <version>0.0.1</version>
+      <version>0.0.2</version>
    </dependency>
 </dependencies>
 ```
@@ -102,6 +102,18 @@ public class CaptchaController {
 ```java 
 LocalCaptchaUtil.verify(code, captchaKey);
 ```
+
+输出base64格式验证码
+```java 
+/**
+     * 获取Base64处理的的图形校验码
+     */
+    @GetMapping("/captcha/base64")
+    @ResponseBody
+    public Result<String> captchaBase64(@RequestParam String captchaKey) throws Exception {
+        return Result.ok(Base64LocalCaptchaUtil.out(captchaKey));
+    }
+```  
 
 集群模式推荐参照LocalCaptchaUtil写一个。
 

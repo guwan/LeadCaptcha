@@ -1,0 +1,148 @@
+package top.knos.captcha.utils;
+
+import top.knos.captcha.PngCaptcha;
+import top.knos.captcha.base.Captcha;
+import top.knos.captcha.cache.CacheManager;
+
+import java.awt.*;
+import java.io.IOException;
+import java.util.concurrent.TimeUnit;
+
+
+/**
+ * 图形验证码工具类
+ * 生成的验证码会写入session中
+ * @author knos
+ *
+ */
+public class Base64LocalCaptchaUtil {
+    private static final String SESSION_KEY = "captcha";
+    private static final int DEFAULT_LEN = 4;  // 默认长度
+    private static final int DEFAULT_WIDTH = 130;  // 默认宽度
+    private static final int DEFAULT_HEIGHT = 48;  // 默认高度
+    public static final int DEFAULT_EXPIRE = 5*60;  // 默认过期时间 秒
+
+    /**
+     * 输出验证码
+     *
+     * @param sessionId  String
+     * @throws IOException IO异常
+     */
+    public static String out(String sessionId)
+            throws IOException {
+        return out(DEFAULT_LEN, sessionId);
+    }
+
+    /**
+     * 输出验证码
+     *
+     * @param len      长度
+     * @param sessionId  String
+     * @throws IOException IO异常
+     */
+    public static String out(int len, String sessionId)
+            throws IOException {
+        return out(DEFAULT_WIDTH, DEFAULT_HEIGHT, len, sessionId);
+    }
+
+    /**
+     * 输出验证码
+     *
+     * @param width    宽度
+     * @param height   高度
+     * @param len      长度
+     * @param sessionId  String
+     * @throws IOException IO异常
+     */
+    public static String out(int width, int height, int len, String sessionId)
+            throws IOException {
+        return out(width, height, len, null, sessionId);
+    }
+
+    /**
+     * 输出验证码
+     *
+     * @param font     字体
+     * @param sessionId  String
+     * @throws IOException IO异常
+     */
+    public static String out(Font font, String sessionId)
+            throws IOException {
+        return out(DEFAULT_WIDTH, DEFAULT_HEIGHT, DEFAULT_LEN, font, sessionId);
+    }
+
+    /**
+     * 输出验证码
+     *
+     * @param len      长度
+     * @param font     字体
+     * @param sessionId  String
+     * @throws IOException IO异常
+     */
+    public static String out(int len, Font font, String sessionId)
+            throws IOException {
+        return out(DEFAULT_WIDTH, DEFAULT_HEIGHT, len, font, sessionId);
+    }
+
+    /**
+     * 输出验证码
+     *
+     * @param width    宽度
+     * @param height   高度
+     * @param len      长度
+     * @param font     字体
+     * @param sessionId  String
+     * @throws IOException IO异常
+     */
+    public static String out(int width, int height, int len, Font font, String sessionId)
+            throws IOException {
+        PngCaptcha pngCaptcha = new PngCaptcha(width, height, len);
+        if (font != null) {
+            pngCaptcha.setFont(font);
+        }
+        return out(pngCaptcha, sessionId);
+    }
+
+
+    /**
+     * 输出验证码
+     *
+     * @param captcha  Captcha
+     * @param sessionId  String
+     * @throws IOException IO异常
+     * @return
+     */
+    public static String out(Captcha captcha, String sessionId)
+            throws IOException {
+        String text = captcha.text();
+        CacheManager.put(sessionId,text,DEFAULT_EXPIRE, TimeUnit.SECONDS);
+        return captcha.toBase64();
+    }
+
+    /**
+     * 通过session验证验证码
+     *
+     * @param code    用户输入的验证码
+     * @param sessionId String
+     * @return 是否正确
+     */
+    public static boolean verify(String code, String sessionId) {
+        if (code != null) {
+            String captcha = (String)CacheManager.get(sessionId);
+            return code.trim().toLowerCase().equals(captcha);
+        }
+        return false;
+    }
+
+    /**
+     * 清除session中的验证码
+     *
+     * @param sessionId String
+     */
+    public static void clear(String sessionId) {
+        CacheManager.refresh();
+    }
+
+
+
+}
